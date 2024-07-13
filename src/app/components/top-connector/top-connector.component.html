@@ -1,0 +1,14 @@
+<input
+  #idInput
+  class="id-input"
+  [(ngModel)]="userId"
+  [disabled]="isConnected"
+  placeholder="Your Id"
+>
+<button
+  class="btn"
+  (click)="onConnect()"
+  [disabled]="idInput.value === ''"
+>{{ isConnected ? 'Disconnect' : 'Connect' }}
+</button>
+

@@ -1,5 +1,5 @@
-import { ChatMessage } from '@app/core/types/message.types';
-import { User } from '@app/core/types/user.types';
+import { ChatMessage } from './message.types';
+import { User } from './user.types';
 
 export interface Conversation {
   id: string;

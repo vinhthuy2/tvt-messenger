@@ -1,6 +1,6 @@
-import { ChatBoxActions } from '@app/components/chat-box/store/chat-box.actions';
-import { Conversation } from '@app/core/types/conversation.types';
-import { createReducer, on } from '@ngrx/store';
+import { Conversation } from '@core/types/conversation.types';
+import { createFeature, createReducer, on } from '@ngrx/store';
+import { ChatBoxActions } from './chat-box.actions';
 
 export const CHAT_BOX_FEATURE_KEY = 'chatBox';
 export const intialChatBoxState: Conversation = {
@@ -16,11 +16,11 @@ export const intialChatBoxState: Conversation = {
   isGroup: false,
   groupInfo: {
     name: '',
-    avatar: ''
-  }
+    avatar: '',
+  },
 };
 
-export const chatBoxReducer = createReducer(
+const chatBoxReducer = createReducer(
   intialChatBoxState,
   on(ChatBoxActions.conversationLoaded, (state, { conversation }) => conversation),
   on(
@@ -30,7 +30,7 @@ export const chatBoxReducer = createReducer(
         ...state,
         messages: [...state.messages, message],
       }
-    )
+    ),
   ),
   on(ChatBoxActions.messageSent, (state) =>
     (
@@ -41,9 +41,9 @@ export const chatBoxReducer = createReducer(
             return { ...message, sent: true };
           }
           return message;
-        })
+        }),
       }
-    )
+    ),
   ),
   on(
     ChatBoxActions.messageRead,
@@ -55,11 +55,18 @@ export const chatBoxReducer = createReducer(
             return { ...message, read: true };
           }
           return message;
-        })
-      })
+        }),
+      }),
   ),
   on(ChatBoxActions.sendMessage, (state, { message }) => ({
     ...state,
-    messages: [...state.messages, message]
+    messages: [...state.messages, message],
   })),
+);
+
+export const chatBoxFeature = createFeature(
+  {
+    name: CHAT_BOX_FEATURE_KEY,
+    reducer: chatBoxReducer,
+  },
 );
