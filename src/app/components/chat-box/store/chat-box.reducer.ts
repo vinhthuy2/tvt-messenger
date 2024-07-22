@@ -1,5 +1,5 @@
-import { Conversation } from '@core/types/conversation.types';
 import { createFeature, createReducer, on } from '@ngrx/store';
+import { Conversation } from '../../../core/types';
 import { ChatBoxActions } from './chat-box.actions';
 
 export const CHAT_BOX_FEATURE_KEY = 'chatBox';

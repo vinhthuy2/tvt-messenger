@@ -1,6 +1,5 @@
-import { ChatMessage } from '@core/types';
-import { Conversation } from '@core/types/conversation.types';
 import { createActionGroup, props } from '@ngrx/store';
+import { ChatMessage, Conversation } from '../../../core/types';
 
 export const ChatBoxActions = createActionGroup(
   {
