@@ -5,20 +5,24 @@ export const topConnectorFeatureKey = 'topConnector';
 
 export interface TopConnectorState {
   userId: string;
+  connected: boolean;
 }
 
 export const initialState: TopConnectorState = {
   userId: '',
+  connected: false,
 };
 
 export const reducer = createReducer<TopConnectorState>(
   initialState,
-  on(TopConnectorActions.connect, (state, { userId }) => {
-    console.log('TopConnectorActions.connect', userId);
-    return {
-      ...state, userId,
-    };
-  }),
+  on(
+    TopConnectorActions.connected,
+    (state, { userId }) => ({ ...state, userId, connected: true }),
+  ),
+  on(
+    TopConnectorActions.connectionFailed,
+    (state) => ({ ...state, connected: false }),
+  ),
 );
 
 export const topConnectorFeature = createFeature(

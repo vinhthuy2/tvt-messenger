@@ -7,3 +7,8 @@ export const selectUserId = createSelector(
   selectTopConnectorState,
   (state) => state.userId,
 );
+
+export const selectConnected = createSelector(
+  selectTopConnectorState,
+  (state) => state.connected,
+);

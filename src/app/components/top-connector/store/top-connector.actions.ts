@@ -7,6 +7,8 @@ export const TopConnectorActions = createActionGroup(
       connect: props<{ userId: string }>(),
       connected: props<{ userId: string }>(),
       connectionFailed: props<{ userId: string }>(),
+      loadFriends: props<{ userId: string }>(),
+      loadConversations: props<{ userId: string }>(),
     },
   },
 );

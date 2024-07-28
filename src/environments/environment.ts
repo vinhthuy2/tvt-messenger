@@ -1,3 +1,7 @@
+import { environmentConfig } from './environment.config';
+
 export const environment = {
-  apiUrl: '',
+  config: environmentConfig,
 };
+
+
