@@ -1,7 +1,14 @@
 <div class="root-container">
   <app-top-connector></app-top-connector>
-  <app-sidebar></app-sidebar>
-  <div>
-    <app-chat-box></app-chat-box>
-  </div>
+
+  <ng-container *ngrxLet="connected$ as connected">
+    @if (connected) {
+      <app-sidebar></app-sidebar>
+      <div>
+        <app-chat-box></app-chat-box>
+      </div>
+    } @else {
+      <span class="col-span-2 text-center">Connect to start using</span>
+    }
+  </ng-container>
 </div>

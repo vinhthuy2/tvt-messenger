@@ -1,34 +1,35 @@
+import { Conversation } from '@core/types';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { Conversation } from '../../../core/types';
 import { ChatBoxActions } from './chat-box.actions';
 
 export const CHAT_BOX_FEATURE_KEY = 'chatBox';
-export const intialChatBoxState: Conversation = {
+
+export const initialChatBoxState: Conversation = {
   id: '',
   participants: [],
   messages: [],
   lastMessage: null,
-  lastMessageTimestamp: null,
   unreadMessageCount: 0,
   isArchived: false,
   isMuted: false,
   isPinned: false,
   isGroup: false,
-  groupInfo: {
-    name: '',
-    avatar: '',
-  },
+  name: '',
+  avatarAlt: '',
+  avatar: undefined,
 };
 
 const chatBoxReducer = createReducer(
-  intialChatBoxState,
-  on(ChatBoxActions.conversationLoaded, (state, { conversation }) => conversation),
+  initialChatBoxState,
+  on(ChatBoxActions.loadConversationSuccessfully, (state, { conversation }) => ({ ...conversation })),
   on(
     ChatBoxActions.messageReceived,
     (state, { message }) => (
       {
         ...state,
-        messages: [...state.messages, message],
+        lastMessage: message,
+        unreadMessageCount: state.unreadMessageCount + 1,
+        messages: [...(state.messages ?? []), message],
       }
     ),
   ),
@@ -36,7 +37,7 @@ const chatBoxReducer = createReducer(
     (
       {
         ...state,
-        messages: state.messages.map(message => {
+        messages: state.messages?.map(message => {
           if (message.id === state.lastMessage?.id) {
             return { ...message, sent: true };
           }
@@ -50,7 +51,7 @@ const chatBoxReducer = createReducer(
     (state, { messageId }) =>
       ({
         ...state,
-        messages: state.messages.map(message => {
+        messages: state.messages?.map(message => {
           if (message.id === messageId) {
             return { ...message, read: true };
           }
@@ -60,7 +61,7 @@ const chatBoxReducer = createReducer(
   ),
   on(ChatBoxActions.sendMessage, (state, { message }) => ({
     ...state,
-    messages: [...state.messages, message],
+    messages: [...(state.messages ?? []), message],
   })),
 );
 

@@ -50,6 +50,9 @@
       ],
       "@assets/*": [
         "src/assets/*"
+      ],
+      "@testing/*": [
+        "src/testing/*"
       ]
     }
   },

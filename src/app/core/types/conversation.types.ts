@@ -6,14 +6,54 @@ export interface Conversation {
   participants: User[];
   messages: ChatMessage[];
   lastMessage: ChatMessage | null;
-  lastMessageTimestamp: Date | null;
   unreadMessageCount: number;
   isArchived: boolean;
   isMuted: boolean;
   isPinned: boolean;
   isGroup: boolean;
-  groupInfo: {
+  name: string;
+  avatar: string | undefined;
+  avatarAlt: string;
+}
+
+export interface CreateConversationRequest {
+  participants: string[];
+  isGroup: boolean;
+  groupInfo?: {
     name: string;
     avatar: string;
   };
+}
+
+export interface UserConversations {
+  userId: string;
+  items: ConversationSummary[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+export type ConversationSummary = ConversationSummaryDto
+
+export interface UserConversationsDto {
+  userId: string;
+  items: ConversationSummaryDto[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+export interface ConversationSummaryDto {
+  id: string;
+  name: string;
+  avatar: string;
+  lastMessage: {
+    content: string;
+    timestamp: Date;
+  } | null;
+  isArchived: boolean;
+  isMuted: boolean;
+  isPinned: boolean;
+  isGroup: boolean;
+  participantIds: string[];
 }

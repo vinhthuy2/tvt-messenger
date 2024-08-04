@@ -1,4 +1,4 @@
-import { environmentConfig } from '../../environments/environment.config';
+import { environmentConfig } from '@env/environment.config';
 
 export const makeInternalApiUrl = (relativeUrl: string) => {
   return `${environmentConfig.apiBaseUrl}/${relativeUrl.replace(/^\/*/, '')}`;

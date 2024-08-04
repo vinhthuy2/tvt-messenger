@@ -24,7 +24,7 @@ describe('TopConnector Reducer', () => {
 
   describe(TopConnectorActions.connectionFailed.type, () => {
     it('should set the connected flag to false', () => {
-      const action = TopConnectorActions.connectionFailed({ userId: '1' });
+      const action = TopConnectorActions.connectionFailed({ email: '1' });
 
       const result = topConnectorFeature.reducer(initialState, action);
 
