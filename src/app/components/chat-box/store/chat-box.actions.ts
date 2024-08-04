@@ -1,11 +1,13 @@
-import { createActionGroup, props } from '@ngrx/store';
-import { ChatMessage, Conversation } from '../../../core/types';
+import { ChatMessage, Conversation } from '@core/types';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const ChatBoxActions = createActionGroup(
   {
     source: 'ChatBox',
     events: {
-      conversationLoaded: props<{ conversation: Conversation }>(),
+      loadConversation: props<{ conversationId: string }>(),
+      loadConversationSuccessfully: props<{ conversation: Conversation }>(),
+      loadConversationFailed: emptyProps(),
       messageReceived: props<{ message: ChatMessage }>(),
       messageSent: props<{ messageId: string }>(),
       messageRead: props<{ messageId: string }>(),

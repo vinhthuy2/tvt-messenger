@@ -29,8 +29,8 @@ export function executeObservableWithHttpRequest<T, TRequest>(
   getTestScheduler().flush();
 
   httpTestingController
-  .expectOne(req => req.url === expectedUrl && (!extraPredicate || extraPredicate(req)))
-  .flush(responseObj, { headers: responseHeaders });
+    .expectOne(req => req.url === expectedUrl && (!extraPredicate || extraPredicate(req)))
+    .flush(responseObj, { headers: responseHeaders });
 
   return obs;
 }
@@ -55,11 +55,11 @@ export function executeObservableWithHttpRequestWithError<T>(
   getTestScheduler().flush();
 
   httpTestingController
-  .expectOne(req => req.url === expectedUrl)
-  .flush(response, {
-    status: statusCode,
-    statusText: '',
-  });
+    .expectOne(req => req.url === expectedUrl)
+    .flush(response, {
+      status: statusCode,
+      statusText: '',
+    });
 
   return obs;
 }

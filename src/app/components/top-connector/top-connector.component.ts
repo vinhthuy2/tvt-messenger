@@ -16,7 +16,7 @@ import { selectConnected } from './store/top-connector.selectors';
   styleUrl: './top-connector.component.scss',
 })
 export class TopConnectorComponent {
-  userId = '';
+  userId = 'user1@mail.com';
   isConnected$ = this.store.select(selectConnected);
 
   // isConnectionFailed$ = this.store.select(s);
@@ -25,6 +25,6 @@ export class TopConnectorComponent {
   }
 
   onConnect() {
-    this.store.dispatch(TopConnectorActions.connect({ userId: this.userId }));
+    this.store.dispatch(TopConnectorActions.connect({ email: this.userId }));
   }
 }

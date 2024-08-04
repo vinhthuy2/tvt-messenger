@@ -1,10 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  Conversation,
+  ConversationSummaryDto,
+  CreateConversationRequestDto,
+  User,
+  UserConversationsDto,
+} from '@core/types';
 
-import { ENVIRONMENT_CONFIG, EnvironmentConfig } from '../../environments/environment.config';
-import { makeInternalApiUrl } from '../../testing/http/url';
-import { Conversation, User } from '../core/types';
+import { ENVIRONMENT_CONFIG, EnvironmentConfig } from '@env/environment.config';
+import { makeInternalApiUrl } from '@testing/http/url';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,23 +26,23 @@ export class HttpService {
     this.apiBaseUrl = environmentConfig.apiBaseUrl;
   }
 
-  getConservationByUserId(userId: string): Observable<Conversation[]> {
-    return this.http.get<Conversation[]>(makeInternalApiUrl(`conservation/${userId}`));
+  getConservationListByUserId(userId: string): Observable<UserConversationsDto> {
+    return this.http.get<UserConversationsDto>(makeInternalApiUrl(`users/${userId}/conversations`));
   }
 
   getConservationById(conversationId: string): Observable<Conversation> {
-    return this.http.get<Conversation>(makeInternalApiUrl(`conservation/${conversationId}`));
+    return this.http.get<Conversation>(makeInternalApiUrl(`conversations/${conversationId}`));
   }
 
-  createConversation(conversation: Conversation): Observable<string> {
-    return this.http.post<string>(makeInternalApiUrl('conservation'), conversation);
+  createConversation(request: CreateConversationRequestDto): Observable<ConversationSummaryDto> {
+    return this.http.post<ConversationSummaryDto>(makeInternalApiUrl('conversations'), request);
   }
 
   getFriends(userId: string): Observable<User[]> {
-    return this.http.get<User[]>(makeInternalApiUrl(`friends/${userId}`));
+    return this.http.get<User[]>(makeInternalApiUrl(`users/${userId}/friends`));
   }
 
-  getUser(userId: string): Observable<User> {
-    return this.http.get<User>(makeInternalApiUrl(`users/${userId}`));
+  getUser(email: string): Observable<User> {
+    return this.http.get<User>(makeInternalApiUrl(`users/${email}`));
   }
 }

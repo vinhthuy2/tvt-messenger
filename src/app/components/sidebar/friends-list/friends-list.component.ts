@@ -3,8 +3,11 @@ import { Component } from '@angular/core';
 import {
   FriendListItemComponent,
 } from '@app/components/sidebar/friends-list/friend-list-item/friend-list-item.component';
+import { FriendsListActions } from '@app/components/sidebar/friends-list/store/friends-list.actions';
+import { selectFriends } from '@app/components/sidebar/friends-list/store/friends-list.selectors';
 import { User } from '@app/core/types';
-import { Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -19,34 +22,12 @@ import { Observable, of } from 'rxjs';
   styleUrl: './friends-list.component.scss',
 })
 export class FriendsListComponent {
-  friends$: Observable<User[]> = of([
-    {
-      id: '1',
-      name: 'John Doe',
-      isOnline: true,
-      lastSeen: new Date(),
-      email: 'asa@cc.c',
-    },
-    {
-      id: '2',
-      name: 'Jane Doe',
-      isOnline: false,
-      lastSeen: new Date(),
-      email: 'asa@cc.c',
-    },
-    {
-      id: '3',
-      name: 'John Doe',
-      isOnline: true,
-      lastSeen: new Date(),
-      email: 'asa@cc.c',
-    },
-    {
-      id: '4',
-      name: 'Jane Doe',
-      isOnline: false,
-      lastSeen: new Date(),
-      email: 'asa@cc.c',
-    },
-  ]);
+  friends$: Observable<User[]> = this.store.select(selectFriends);
+
+  constructor(private readonly store: Store) {
+  }
+
+  onFriendSelected(friendId: string): void {
+    this.store.dispatch(FriendsListActions.friendSelected({ friendId }));
+  }
 }

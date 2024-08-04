@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
 
 import { FriendsListComponent } from './friends-list.component';
 
@@ -8,9 +9,12 @@ describe('FriendsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FriendsListComponent]
+      imports: [
+        FriendsListComponent,
+        StoreModule.forRoot({}, {}),
+      ],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(FriendsListComponent);
     component = fixture.componentInstance;
